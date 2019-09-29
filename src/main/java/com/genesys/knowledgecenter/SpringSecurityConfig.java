@@ -26,6 +26,10 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter{
                 .and()
                 .authorizeRequests()
                 .antMatchers(HttpMethod.POST, "/document/**").hasRole("AUTHOR")
+                .antMatchers(HttpMethod.POST, "/Kbase").hasRole("AUTHOR")
+                .antMatchers(HttpMethod.PUT ,"/document").hasRole("AUTHOR")
+                .antMatchers(HttpMethod.DELETE ,"/document").hasRole("AUTHOR")
+                .antMatchers(HttpMethod.DELETE ,"/Kbase/**").hasRole("AUTHOR")
                 .and()
                 .csrf().disable()
                 .formLogin().disable();

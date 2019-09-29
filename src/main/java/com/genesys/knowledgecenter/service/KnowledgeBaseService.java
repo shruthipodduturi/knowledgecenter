@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.genesys.knowledgecenter.domain.KnowledgeBase;
 import com.genesys.knowledgecenter.repositories.CategoryRepository;
+import com.genesys.knowledgecenter.repositories.DocumentRepository;
 import com.genesys.knowledgecenter.repositories.KnowledgeBaseRepository;
 
 @Service
@@ -19,6 +20,10 @@ public class KnowledgeBaseService {
 	
 	@Autowired
 	private CategoryRepository categoryRepository;
+	
+	@Autowired
+	private DocumentRepository documentRepository;
+	
 	
 	public KnowledgeBase createKnowledgeBase(KnowledgeBase kbase){
 		categoryRepository.insert(kbase.getCategories());
@@ -32,6 +37,18 @@ public class KnowledgeBaseService {
 	
 	public Optional<KnowledgeBase> getKnowledgeBaseById(ObjectId kbaseId){
 		return knowledgeRepository.findById(kbaseId.toHexString());
+	}
+	
+	public void updateKnowledgeBase(KnowledgeBase kbase){
+		categoryRepository.saveAll(kbase.getCategories());
+		knowledgeRepository.save(kbase);
+	}
+	
+	
+	public void deleteKnowledgeBase(ObjectId kbaseId){
+		categoryRepository.deleteAll((knowledgeRepository.findById(kbaseId.toHexString())).get().getCategories());
+		documentRepository.deleteAll(documentRepository.findDocumentsByKnowledgeBaseId(kbaseId));
+		knowledgeRepository.deleteById(kbaseId.toHexString());;
 	}
 
 }
