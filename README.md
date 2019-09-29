@@ -43,34 +43,34 @@ and document can belong to only one category at any point of time.
 
     This API is used to retrieve all the knowledgebases along with the category information.
     
-3. https://localhost:8080/Kbase/{kbaseId} - GET
+3.  https://localhost:8080/Kbase/{kbaseId} - GET
 
-  This API is used to get a particular knowledge base information based on knowledge base Id provided in the path variable
+    This API is used to get a particular knowledge base information based on knowledge base Id provided in the path variable
   
   
-4. https://localhost:8080/document/{kbaseId}/upload - POST
+4.  https://localhost:8080/document/{kbaseId}/upload - POST
 
-  This API is used to upload a file with documents in it.
+    This API is used to upload a file with documents in it.
   
-5.https://localhost:8080/document/findAll/{kbaseId} - GET
+5.  https://localhost:8080/document/findAll/{kbaseId} - GET
 
   This API is used to get all the documents related to the given knowledge base.
   
 6. https://localhost:8080/document/findBy/{kbaseId}/{categoryId}
 
-  This API is used to get the documents based on the given knowledge base Id and category Id.
+   This API is used to get the documents based on the given knowledge base Id and category Id.
   
 7. https://localhost:8080/document/{kbaseId} - PUT
 
-  This API is used to update the document.
+   This API is used to update the document.
   
 8. https://localhost:8080/document/{docId} - DELETE
 
-  This API is used to delete a document
+   This API is used to delete a document
   
 9. https://lcoalhost:8080/document/search/{keyword} - GET
  
- This API is used for simple text search in the documents by providing a keyword.
+  This API is used for simple text search in the documents by providing a keyword.
  
  
  
