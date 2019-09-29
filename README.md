@@ -31,6 +31,8 @@ Maven as build tool
 
 3.Download this project by cloning the below URL:
 
+https://github.com/shruthipodduturi/knowledgecenter.git
+
 
 **Below is the list of APIs implemeted:**
 
