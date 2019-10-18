@@ -36,47 +36,48 @@ https://github.com/shruthipodduturi/knowledgecenter.git
 
 **Below is the list of APIs implemeted:**
 
-1.  http://localhost:8080/Kbase  - POST
+1.  curl -u username:password -X POST "http://localhost:8080/Kbase" -H "accept: application/json" -H "Content-Type: application/json" 
   
-    This API is used to create a new knowledgebase along with the categories.
+    This API is used to create a new knowledgebase along with the categories.Only User With Role AUTHOR can access this URL.
     
-2.  http://localhost:8080/Kbase/findAll - GET
+2.  curl -X GET "http://localhost:8080/Kbase/findAll" -H "accept: application/json"
 
     This API is used to retrieve all the knowledgebases along with the category information.
     
-3.  http://localhost:8080/Kbase/{kbaseId} - GET
+3.  curl -X GET "http://localhost:8080/Kbase/{kbaseId}" -H "accept: application/json"
 
     This API is used to get a particular knowledge base information based on knowledge base Id provided in the path variable
   
-4.  http://localhost:8080/Kbase - PUT
+4.  curl -u username:password -X PUT "http://localhost:8080/Kbase" -H "accept: */*" -H "Content-Type: application/json" 
 
-  This API is used to update the knowledgeBase and category information.
+  This API is used to update the knowledgeBase and category information.Only user with ROLE AUTHOR can access this URL.
   
-5. http://localhost:8080/Kbase/{kbaseId} - DELETE
+5. curl -u username:password -X DELETE "http://localhost:8080/Kbase/{kbaseId}" -H "accept: */*"
 
-   This API is used to delete KnowledgeBase based on the given kbaseId
+   This API is used to delete KnowledgeBase based on the given kbaseId,Only user with ROLE AUTHOR can access this URL.
   
-6.  http://localhost:8080/document/{kbaseId}/upload - POST
+6.  curl -u username:password -X POST "http://localhost:8080/document/sdsd/upload" -H "accept: application/json" -H "Content-Type: multipart/form-data" -F "file=@document.json;type=application/json"
 
     This API is used to upload a file with documents in it. File size limit can be modified in application.properties file.
+    Only user with ROLE AUTHOR can upload the documents.
   
-7.  https://localhost:8080/document/findAll/{kbaseId} - GET
+7.  curl -X GET "http://localhost:8080/document/findAll/{kbaseId}" -H "accept: application/json"
 
    This API is used to get all the documents related to the given knowledge base.
   
-8. http://localhost:8080/document/findBy/{kbaseId}/{categoryId}
+8. curl -X GET "http://localhost:8080/document/findBy/{kbaseId}/{categoryId}" -H "accept: application/json"
 
    This API is used to get the documents based on the given knowledge base Id and category Id.
   
-9. http://localhost:8080/document/{kbaseId} - PUT
+9. curl -u username:password -X PUT "http://localhost:8080/document/s" -H "accept: */*" -H "Content-Type: application/json" -d 
 
-   This API is used to update the document.
+   This API is used to update the document.Only user with ROLE AUTHOR can update the document.
   
-10. http://localhost:8080/document/{docId} - DELETE
+10. curl -u username:password -X DELETE "http://localhost:8080/document/{docId}" -H "accept: */*"
 
-   This API is used to delete a document
+   This API is used to delete a document,Only user with ROLE AUTHOR can delete the document.
   
-11. http://lcoalhost:8080/document/search/{keyword} - GET
+11. curl -X GET "http://localhost:8080/document/search/{keyword}" -H "accept: application/json"
  
   This API is used for simple text search in the documents by providing a keyword.
  
