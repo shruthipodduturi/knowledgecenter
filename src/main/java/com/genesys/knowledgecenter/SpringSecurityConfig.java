@@ -27,6 +27,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter{
                 .authorizeRequests()
                 .antMatchers(HttpMethod.POST, "/document/**").hasRole("AUTHOR")
                 .antMatchers(HttpMethod.POST, "/Kbase").hasRole("AUTHOR")
+                .antMatchers(HttpMethod.PUT, "/Kbase").hasRole("AUTHOR")
                 .antMatchers(HttpMethod.PUT ,"/document").hasRole("AUTHOR")
                 .antMatchers(HttpMethod.DELETE ,"/document").hasRole("AUTHOR")
                 .antMatchers(HttpMethod.DELETE ,"/Kbase/**").hasRole("AUTHOR")

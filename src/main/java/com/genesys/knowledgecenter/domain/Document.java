@@ -2,9 +2,12 @@ package com.genesys.knowledgecenter.domain;
 
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.index.TextIndexed;
 
-public class Document {
+
+@org.springframework.data.mongodb.core.mapping.Document
+public  class Document {
 	
 	@Id
 	private ObjectId  id;
@@ -13,18 +16,27 @@ public class Document {
 	
 	private String locale;
 	
-	private String question;
-	private String answer;
+	private @TextIndexed String question;
 	
-	private String title;
+	private @TextIndexed String answer;
 	
-	private String content;
+	private @TextIndexed String title;
+	
+	private @TextIndexed String content;
 	private ObjectId kbaseId;
 	
 	private ObjectId categoryId;
 	
+	public Document() {
+		
+	}
 	
-	
+	public Document(String docType,String locale,ObjectId kbaseId,ObjectId categoryId) {
+		this.docType = docType;
+		this.locale = locale;
+		this.kbaseId = kbaseId;
+		this.categoryId = categoryId;
+	}
 	
 	
 	

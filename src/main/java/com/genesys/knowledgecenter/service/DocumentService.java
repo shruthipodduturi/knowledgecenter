@@ -16,7 +16,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.genesys.knowledgecenter.domain.Document;
+import com.genesys.knowledgecenter.error.InvalidDocTypeException;
 import com.genesys.knowledgecenter.repositories.DocumentRepository;
+import com.genesys.knowledgecenter.utility.DocumentFactory;
 
 @Service
 public class DocumentService {
@@ -28,7 +30,7 @@ public class DocumentService {
     public static final String DOC_CONTENT = "content";
     public static final String DOC_QUESTION = "question";
     public static final String DOC_ANSWER = "answer";
-    public static final String DOC_CATEGORY_Id = "categoryId";
+    public static final String DOC_CATEGORY_ID = "categoryId";
     
 	
 	
@@ -36,75 +38,89 @@ public class DocumentService {
 	private DocumentRepository docRepository;
 	
 	@Autowired
-	private MongoTemplate mongoTemplate;
+	private DocumentFactory documentFactory;
 	
 	
-	public void saveDocument(MultipartFile file, ObjectId kbaseId){
+	public void saveDocument(MultipartFile file, ObjectId kbaseId) throws IOException{
 		
 		try{
+			
+			
 			File f = convert(file);
+			
 			JsonFactory jsonFactory = new JsonFactory();
 		
 			JsonParser jsonParser = jsonFactory.createJsonParser(f);
-			Document document = new Document();
 			
-			
+			Document document = null;
 			JsonToken jsonToken = jsonParser.nextToken();
+			
             while (jsonToken!= JsonToken.END_ARRAY){ //Iterate all elements of array
             	
-            	document.setKbaseId(kbaseId);
                 String fieldname = jsonParser.getCurrentName(); //get current name of token
-                if (DOC_ID.equals(fieldname)) {
-                    jsonToken = jsonParser.nextToken(); //read next token
-                    document.setId(new ObjectId(jsonParser.getText()));
-                }
-                if (DOC_LOCALE.equals(fieldname)) {
-                    jsonToken = jsonParser.nextToken();
-                    document.setLocale(jsonParser.getText());
-                }
-                if (DOC_TYPE.equals(fieldname)) {
-                    jsonToken = jsonParser.nextToken();
-                    document.setDocType(jsonParser.getText());
-                }
-                if (DOC_CATEGORY_Id.equals(fieldname)) {
-                    jsonToken = jsonParser.nextToken(); //read next token
-                    document.setCategoryId(new ObjectId(jsonParser.getText()));
-                }
-                if (DOC_TITLE.equals(fieldname)) {
-                    jsonToken = jsonParser.nextToken();
-                    document.setTitle(jsonParser.getText());
-                }
-                if (DOC_CONTENT.equals(fieldname)) {
-                    jsonToken = jsonParser.nextToken();
-                    document.setContent(jsonParser.getText());
-                }
-                if (DOC_QUESTION.equals(fieldname)) {
-                    jsonToken = jsonParser.nextToken();
-                    document.setQuestion(jsonParser.getText());
-                }
-                if (DOC_ANSWER.equals(fieldname)) { 
-                	jsonToken = jsonParser.nextToken();
-                    document.setAnswer(jsonParser.getText());
-                }
-                if(jsonToken==JsonToken.END_OBJECT){
-                    
-                	//store in DB
-                	docRepository.insert(document);
-                	
-                	
-                    document = new Document();
-                    
+                
+                if(fieldname != null) {
+	                switch(fieldname) {
+	                
+		                case DOC_TYPE:
+		                	jsonParser.nextToken();
+		                	document = documentFactory.getDocument(jsonParser.getText());
+		                	if(document == null)
+		                		throw new InvalidDocTypeException("Invalid Document Type");
+		                    document.setDocType(jsonParser.getText());
+		                    break;
+		                case DOC_ID:
+		                	jsonParser.nextToken();
+		                    document.setId(new ObjectId(jsonParser.getText()));
+		                    break;
+		                case DOC_LOCALE:
+		                	jsonParser.nextToken();
+		                    document.setLocale(jsonParser.getText());
+		                    break;
+		                case DOC_CATEGORY_ID:
+		                	jsonParser.nextToken();
+		                    document.setCategoryId(new ObjectId(jsonParser.getText()));
+		                    break;
+		                case DOC_TITLE:
+		                	jsonParser.nextToken();
+		                    document.setTitle(jsonParser.getText());
+		                    break;
+		                case DOC_CONTENT:
+		                	jsonParser.nextToken();
+		                    document.setContent(jsonParser.getText());
+		                    break;
+		                case DOC_QUESTION:
+		                	jsonParser.nextToken();
+		                    document.setQuestion(jsonParser.getText());
+		                    break;
+		                case DOC_ANSWER:
+		                	jsonParser.nextToken();
+		                    document.setAnswer(jsonParser.getText());
+		                    break;
+		                default:
+		                	break;
+		                	
+	                }
                 }
                 
+                if(jsonToken==JsonToken.END_OBJECT){
+                	//store in DB
+                	document.setKbaseId(kbaseId);
+                	docRepository.insert(document);
+                    
+                }
                 jsonToken = jsonParser.nextToken();
             }
             
+        } catch(IllegalArgumentException e) {
+        	throw new IllegalArgumentException("Incorrect Text Format");
         } catch (IOException e) {
-            e.printStackTrace();
-        }
-
+        	throw new IOException("Error in Parsing JSON"); 
+        } 
+		
 		
 	}
+	
 	
 	public List<Document> findDocumentsByKnowledgeBaseId(ObjectId kbaseId){
 		return docRepository.findDocumentsByKnowledgeBaseId(kbaseId);
