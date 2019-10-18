@@ -50,11 +50,11 @@ https://github.com/shruthipodduturi/knowledgecenter.git
   
 4.  curl -u username:password -X PUT "http://localhost:8080/Kbase" -H "accept: */*" -H "Content-Type: application/json" 
 
-  This API is used to update the knowledgeBase and category information.Only user with ROLE AUTHOR can access this URL.
+    This API is used to update the knowledgeBase and category information.Only user with ROLE AUTHOR can access this URL.
   
-5. curl -u username:password -X DELETE "http://localhost:8080/Kbase/{kbaseId}" -H "accept: */*"
+5.  curl -u username:password -X DELETE "http://localhost:8080/Kbase/{kbaseId}" -H "accept: */*"
 
-   This API is used to delete KnowledgeBase based on the given kbaseId,Only user with ROLE AUTHOR can access this URL.
+    This API is used to delete KnowledgeBase based on the given kbaseId,Only user with ROLE AUTHOR can access this URL.
   
 6.  curl -u username:password -X POST "http://localhost:8080/document/sdsd/upload" -H "accept: application/json" -H "Content-Type: multipart/form-data" -F "file=@document.json;type=application/json"
 
@@ -75,11 +75,11 @@ https://github.com/shruthipodduturi/knowledgecenter.git
   
 10. curl -u username:password -X DELETE "http://localhost:8080/document/{docId}" -H "accept: */*"
 
-   This API is used to delete a document,Only user with ROLE AUTHOR can delete the document.
+    This API is used to delete a document,Only user with ROLE AUTHOR can delete the document.
   
 11. curl -X GET "http://localhost:8080/document/search/{keyword}" -H "accept: application/json"
  
-  This API is used for simple text search in the documents by providing a keyword.
+    This API is used for simple text search in the documents by providing a keyword.
  
  
  
