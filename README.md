@@ -38,7 +38,7 @@ https://github.com/shruthipodduturi/knowledgecenter.git
 
 1.  curl -u username:password -X POST "http://localhost:8080/Kbase" -H "accept: application/json" -H "Content-Type: application/json" 
   
-    This API is used to create a new knowledgebase along with the categories.Only User With Role AUTHOR can access this URL.
+    This API is used to create a new knowledgebase along with the categories.Only user with Role AUTHOR can access this URL.
     
 2.  curl -X GET "http://localhost:8080/Kbase/findAll" -H "accept: application/json"
 
