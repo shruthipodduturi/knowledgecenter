@@ -63,15 +63,15 @@ https://github.com/shruthipodduturi/knowledgecenter.git
   
 7.  curl -X GET "http://localhost:8080/document/findAll/{kbaseId}" -H "accept: application/json"
 
-   This API is used to get all the documents related to the given knowledge base.
+    This API is used to get all the documents related to the given knowledge base.
   
-8. curl -X GET "http://localhost:8080/document/findBy/{kbaseId}/{categoryId}" -H "accept: application/json"
+8.  curl -X GET "http://localhost:8080/document/findBy/{kbaseId}/{categoryId}" -H "accept: application/json"
 
-   This API is used to get the documents based on the given knowledge base Id and category Id.
+    This API is used to get the documents based on the given knowledge base Id and category Id.
   
-9. curl -u username:password -X PUT "http://localhost:8080/document/s" -H "accept: */*" -H "Content-Type: application/json" -d 
+9.  curl -u username:password -X PUT "http://localhost:8080/document/{kbaseId}" -H "accept: */*" -H "Content-Type: application/json" -d 
 
-   This API is used to update the document.Only user with ROLE AUTHOR can update the document.
+    This API is used to update the document.Only user with ROLE AUTHOR can update the document.
   
 10. curl -u username:password -X DELETE "http://localhost:8080/document/{docId}" -H "accept: */*"
 
