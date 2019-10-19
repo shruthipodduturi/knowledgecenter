@@ -10,7 +10,7 @@ Goal is to develop REST APIs to create knowledge center,categories and associate
 
 JAVA
 
-Mongo DB
+Embedded Mongo DB
 
 Spring Boot
 
@@ -25,11 +25,9 @@ Maven as build tool
 
 **STEPS FOR IMPLEMENTING THE SOLUTION**
 
-1.Install JAVA and mvn
+1.Install JAVA and mvn.
 
-2.Install Mongo DB
-
-3.Download this project by cloning the below URL:
+2.Download this project by cloning the below URL:
 
 https://github.com/shruthipodduturi/knowledgecenter.git
 
